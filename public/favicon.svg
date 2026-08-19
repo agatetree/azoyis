@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title desc">
+  <title id="title">AzoyIs favicon</title>
+  <desc id="desc">A soft slate rounded square with a custom ivory letter A and a muted gold dot.</desc>
+  <rect x="8" y="8" width="496" height="496" rx="112" fill="#6E7C88"/>
+  <path
+    fill="#FCFBF8"
+    fill-rule="evenodd"
+    d="M64 398 188 96q5-12 19-12h41q14 0 19 12l122 302h-84l-27-72H174l-27 72H64Zm141-132 66-34-34-89-32 123Z"
+  />
+  <circle cx="414" cy="402" r="34" fill="#C8A15B"/>
+</svg>
