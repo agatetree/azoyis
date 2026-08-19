@@ -12,6 +12,6 @@ export function getRuntimeEnv(): AzoyIsRuntimeEnv {
     ADMIN_SETUP_EMAIL: process.env.ADMIN_SETUP_EMAIL,
     ADMIN_SETUP_KEY: process.env.ADMIN_SETUP_KEY,
     CONTACT_TO_EMAIL: process.env.CONTACT_TO_EMAIL,
-    POSTGRES_URL: process.env.POSTGRES_URL,
+  POSTGRES_URL: process.env.POSTGRES_URL ?? process.env.POSTGRES_DATABASE_URL,
   };
 }
