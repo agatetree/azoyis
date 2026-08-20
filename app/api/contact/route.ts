@@ -1,9 +1,10 @@
 import { NextResponse } from "next/server";
-import { getRuntimeEnv } from "../../../../lib/runtime-env";
+
 
 function runtimeValue(name: string) {
-  const value = (getRuntimeEnv() as Record<string, unknown>)[name];
-  return typeof value === "string" ? value : "";
+  const value = process.env[name];
+  return typeof value === "string" ? value.trim() : "";
+
 }
 
 export async function POST(request: Request) {
