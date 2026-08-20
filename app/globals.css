@@ -1187,7 +1187,7 @@ h1 {
 
 .spotlight-visual > .cartiro-preview img {
   width: min(100%, 620px);
-  max-height: 300px;
+  max-height: 250px;
 }
 
 .tzadikim-preview {
