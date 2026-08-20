@@ -1,7 +1,9 @@
-import type { NextConfig } from "next";
-
 const nextConfig: NextConfig = {
-  /* config options here */
+  // ...whatever is already there stays...
+  async rewrites() {
+    return [
+      { source: "/lchaim", destination: "/lchaim/index.html" },
+      { source: "/radar", destination: "/radar/index.html" },
+    ];
+  },
 };
-
-export default nextConfig;
