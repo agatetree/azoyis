@@ -1,0 +1,244 @@
+{
+ "dataset": "L'CHAIM kosher alcohol dataset",
+ "state": "FROZEN - FINAL VERIFIED DATASET",
+ "frozen_on": "2026-08-11",
+ "categories": 6,
+ "total_records": 3370,
+ "sources_verified_live_on": "2026-08-11",
+ "sources": {
+  "STAR-K": "https://www.star-k.org/resource/list/W56J90P5/all_liquor",
+  "cRc": "https://consumer.crckosher.org/liquor/full-liquor-list/"
+ },
+ "authority_order": [
+  "1. The live STAR-K and cRc listings - the only true authority.",
+  "2. <category>_kosher_research.json - AUTHORITATIVE for all derived work.",
+  "3. Everything else is derived and must never be used to correct the category files."
+ ],
+ "change_policy": [
+  "FROZEN. Classifications must not change.",
+  "The only permitted trigger is NEW OFFICIAL EVIDENCE from STAR-K or cRc.",
+  "A producer site, retailer, search result or AI summary is NOT sufficient grounds.",
+  "Any permitted change must cite the official source and date, update the record fingerprint, append to change_log, and regenerate every derived file."
+ ],
+ "standing_rules": [
+  "The four lists OVERLAP. Never add list totals to get a record count.",
+  "List 1 = \"approved only when bearing the required kosher symbol\" - the agency CONDITION of approval. No record claims a bottle was physically observed carrying a mark.",
+  "symbol_required_for_approval = null means the agency is SILENT, never \"no symbol required\".",
+  "STAR-K and cRc are separate and are never merged, averaged or reconciled.",
+  "A not-approved status is controlling: such a record appears in List 4 and only List 4.",
+  "LIQUEUR IS LIMITED SCOPE - certified bottles only. Absence from the Liqueur list must NEVER be read as \"not approved\". It carries no information at all.",
+  "Nine rye whiskey products are deliberately excluded from Bourbon and preserved in bourbon_kosher_research.json -> category_exclusions_rye_named."
+ ],
+ "category_summary": {
+  "scotch": {
+   "records": 678,
+   "record_fingerprint_sha256_16": "681917dec278b50e",
+   "STAR-K": 482,
+   "cRc": 196,
+   "limited_scope": false
+  },
+  "bourbon": {
+   "records": 324,
+   "record_fingerprint_sha256_16": "cacb4a4c94491fb6",
+   "STAR-K": 117,
+   "cRc": 207,
+   "limited_scope": false
+  },
+  "tequila": {
+   "records": 300,
+   "record_fingerprint_sha256_16": "5dd8c498a79ab9d0",
+   "STAR-K": 210,
+   "cRc": 90,
+   "limited_scope": false
+  },
+  "vodka": {
+   "records": 307,
+   "record_fingerprint_sha256_16": "26bf3a582ba437d2",
+   "STAR-K": 62,
+   "cRc": 245,
+   "limited_scope": false
+  },
+  "beer": {
+   "records": 1501,
+   "record_fingerprint_sha256_16": "637cbf3a89977355",
+   "STAR-K": 871,
+   "cRc": 630,
+   "limited_scope": false
+  },
+  "liqueur": {
+   "records": 260,
+   "record_fingerprint_sha256_16": "e127bc21c9493f95",
+   "STAR-K": 65,
+   "cRc": 195,
+   "limited_scope": true
+  }
+ },
+ "files": {
+  "ARCHIVE_UNAPPROVED_lchaim_bourbon_scotch.json": {
+   "sha256": "f0afc8ba6024834c493f06344aa73de0da204a78605c1882fcc3332b27cc2920",
+   "bytes": 730293,
+   "role": "archive / superseded - not part of the frozen dataset"
+  },
+  "VERIFY_FREEZE.py": {
+   "sha256": "cc8adb0e67d371ee7f365e6273dac626a67e35259937607949c581d9fdedf4e0",
+   "bytes": 3205,
+   "role": "verifier - run to confirm the freeze still holds"
+  },
+  "beer_for_gpt.json": {
+   "sha256": "9954b80fe2c6be7b487b73a181da1d7aaa2dd91d4256ae3217ab8d5eda91aa0b",
+   "bytes": 109669,
+   "role": "derived - chat distribution copy"
+  },
+  "beer_kosher_research.csv": {
+   "sha256": "07fa416423e7fbf56ad3f27fdeaf29215e4660df1c4dcc3284159c43d51e2317",
+   "bytes": 593434,
+   "role": "derived from the category JSON"
+  },
+  "beer_kosher_research.json": {
+   "sha256": "cf94257725e0448551df3b7802bcb3838e8cfc5cb565782b28891bbe07c93588",
+   "bytes": 2700365,
+   "role": "AUTHORITATIVE - frozen category dataset"
+  },
+  "beer_kosher_research_report.md": {
+   "sha256": "9bc7894de0c6c61d06bffb3d7d76449aa3fa114e6cef5a1647e2979e6090886e",
+   "bytes": 335394,
+   "role": "derived from the category JSON"
+  },
+  "bourbon_for_gpt.json": {
+   "sha256": "4b60779632004a94bc59d04a667003770b6116aa9ba10993aa42dc4648205ecd",
+   "bytes": 29373,
+   "role": "derived - chat distribution copy"
+  },
+  "bourbon_kosher_research.csv": {
+   "sha256": "e006e7c6ae9c8655970e41c01716e161048f0bb724872a4b76805c600a79b439",
+   "bytes": 153812,
+   "role": "derived from the category JSON"
+  },
+  "bourbon_kosher_research.json": {
+   "sha256": "778d58374f65805b7b894ee8c1c8cd82806457e8e641385415b7048b4b88c73d",
+   "bytes": 737645,
+   "role": "AUTHORITATIVE - frozen category dataset"
+  },
+  "bourbon_kosher_research_report.md": {
+   "sha256": "80e0530f02fc9d10c4074d0a3ea38594d18f7e4c9961b6c6f23ee738f5ade189",
+   "bytes": 83919,
+   "role": "derived from the category JSON"
+  },
+  "build_kosher_v2.py": {
+   "sha256": "697a658a3267ab00d3273279516bb13bd30227f042072b1432075e822178ccc7",
+   "bytes": 8488,
+   "role": "SOURCE IMPORT script - untouched"
+  },
+  "cRc_liquor.json": {
+   "sha256": "b74173813c5a2e0f0f4d362e78013e3189b3fd7448a22b008b8a79fe6544f8f9",
+   "bytes": 1078018,
+   "role": "SOURCE IMPORT - untouched"
+  },
+  "lchaim_all_categories_for_gpt.json": {
+   "sha256": "c578056a858791be9e0d4844d234518520d08d84d2e316ab12498b9eab1866a6",
+   "bytes": 252926,
+   "role": "derived - consolidated chat distribution copy, NOT authoritative"
+  },
+  "liqueur_for_gpt.json": {
+   "sha256": "9e03f245df6949035a312a8793a95b43d622ed2d9eb4a26ed3cdddf26f37556d",
+   "bytes": 26137,
+   "role": "derived - chat distribution copy"
+  },
+  "liqueur_kosher_research.csv": {
+   "sha256": "b6bb18e9ffebd4ada54f76124951a0c3c4409f9d6bd3d0574cf3b981861204ca",
+   "bytes": 104804,
+   "role": "derived from the category JSON"
+  },
+  "liqueur_kosher_research.json": {
+   "sha256": "f536310242f4e41d7cc07ebeed5058f09346d3396407dc2b7fb6199f56ccc2a6",
+   "bytes": 525404,
+   "role": "AUTHORITATIVE - frozen category dataset"
+  },
+  "liqueur_kosher_research_report.md": {
+   "sha256": "827f4233e48417ab041c5db7cce985abced0f22bb73a12fc9437c920076d5732",
+   "bytes": 95547,
+   "role": "derived from the category JSON"
+  },
+  "scotch_audit_excluded.json": {
+   "sha256": "0b3180383f2018f20789bf1df8156d5411be0286536f77f60def06c53e8a0e35",
+   "bytes": 12881,
+   "role": "archive / superseded - not part of the frozen dataset"
+  },
+  "scotch_for_gpt.json": {
+   "sha256": "aee0cd93d0f3fed82d1895a3a1a4185b905d4b0f3d63739e36d1e85778e8a602",
+   "bytes": 39921,
+   "role": "derived - chat distribution copy"
+  },
+  "scotch_kosher_research.csv": {
+   "sha256": "70815745ea929edc7dbd58cefd557ac8187d2162fe23e4a744b4c21e3368de66",
+   "bytes": 265885,
+   "role": "derived from the category JSON"
+  },
+  "scotch_kosher_research.json": {
+   "sha256": "c0cd423f71dc422c8c76f9f94a2b3c1e645e8bc75d887fad9de3ebf0c051baa5",
+   "bytes": 1116093,
+   "role": "AUTHORITATIVE - frozen category dataset"
+  },
+  "scotch_kosher_research_report.md": {
+   "sha256": "27b6a847fb4a9de246abfecf7789f519f54c89fa4f54bf933f4e94f497849c6b",
+   "bytes": 134920,
+   "role": "derived from the category JSON"
+  },
+  "scotch_lchaim.json": {
+   "sha256": "2e8c41e8cbaae8fdf326d0bb01d33f2bcc930f81fb1052b1815a72eecb808ada",
+   "bytes": 481535,
+   "role": "archive / superseded - not part of the frozen dataset"
+  },
+  "starK_liquor.json": {
+   "sha256": "840a3fd147c2cddac885dd0275ea51a7f4dab6624283112fe9cdfba7c3de43ce",
+   "bytes": 1525146,
+   "role": "SOURCE IMPORT - untouched"
+  },
+  "tequila_for_gpt.json": {
+   "sha256": "daf75839a96c6fa2541ebe3291c9665b952ffe5e7e70e5d95dda19c13b04003b",
+   "bytes": 20451,
+   "role": "derived - chat distribution copy"
+  },
+  "tequila_kosher_research.csv": {
+   "sha256": "74e54fc950319cd72ab6c2ca691b7b18f757967724fec683bae2a8504a1bde30",
+   "bytes": 120524,
+   "role": "derived from the category JSON"
+  },
+  "tequila_kosher_research.json": {
+   "sha256": "e75b5bb762fd47b71622b4975a1d1b0854b802c04e8b19904a8cd0ce3183330c",
+   "bytes": 509142,
+   "role": "AUTHORITATIVE - frozen category dataset"
+  },
+  "tequila_kosher_research_report.md": {
+   "sha256": "2c860443c8d3c87466e7537d4c0937b78f808092dc550df8499ff4d6745106b2",
+   "bytes": 68522,
+   "role": "derived from the category JSON"
+  },
+  "unplaced_star_k_records.json": {
+   "sha256": "1e06d58566e84c9a75e5e73755eb558cff1c61c76b5bd9765173eb947875fb45",
+   "bytes": 2987,
+   "role": "supporting - reconciliation of unplaced STAR-K records"
+  },
+  "vodka_for_gpt.json": {
+   "sha256": "1af4c363cdf5cbf3dfc2fc535f3b7615bb77d06ab67ed18f37dcdec8cb32ec9a",
+   "bytes": 26732,
+   "role": "derived - chat distribution copy"
+  },
+  "vodka_kosher_research.csv": {
+   "sha256": "722bc4b668e68dd05937d4c35531ce1fdbb1bb36b6c0cb42da5932004950f894",
+   "bytes": 117707,
+   "role": "derived from the category JSON"
+  },
+  "vodka_kosher_research.json": {
+   "sha256": "752481854ba52340623d4b22c95a4eb4c9badc0956f154470024e5ac9e83516c",
+   "bytes": 548336,
+   "role": "AUTHORITATIVE - frozen category dataset"
+  },
+  "vodka_kosher_research_report.md": {
+   "sha256": "91cda1638385bc62f1240124f3888dee5476a25baccc03822cb692d6bf49e813",
+   "bytes": 97227,
+   "role": "derived from the category JSON"
+  }
+ },
+ "how_to_verify": "python VERIFY_FREEZE.py"
+}
