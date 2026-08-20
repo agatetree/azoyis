@@ -1,5 +1,6 @@
+import type { NextConfig } from "next";
+
 const nextConfig: NextConfig = {
-  // ...whatever is already there stays...
   async rewrites() {
     return [
       { source: "/lchaim", destination: "/lchaim/index.html" },
@@ -7,3 +8,5 @@ const nextConfig: NextConfig = {
     ];
   },
 };
+
+export default nextConfig;
