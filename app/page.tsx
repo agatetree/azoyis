@@ -1,4 +1,5 @@
 import ContactForm from "./contact-form";
+import SplashScreen from "./splash-screen";
 import ProjectShowcase from "./project-showcase";
 import { fallbackProjects, listProjects } from "../lib/project-store";
 
@@ -16,6 +17,13 @@ export default async function Home() {
   const projects = await homepageProjects();
   return (
     <>
+      <script
+        dangerouslySetInnerHTML={{
+          __html:
+            '(function(){try{var k="azoyis-splash-seen";var seen=sessionStorage.getItem(k)==="1";var reduced=window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)").matches;if(!seen&&!reduced){document.documentElement.setAttribute("data-splash","on");}sessionStorage.setItem(k,"1");setTimeout(function(){document.documentElement.removeAttribute("data-splash");},5000);}catch(e){}})();',
+        }}
+      />
+      <SplashScreen />
       <header className="site-header">
         <a className="brand" href="#top" aria-label="AzoyIs home"><img src="/logo.png" alt="AzoyIs" /></a>
         <nav aria-label="Main navigation"><a href="#services">Build</a><a href="#work">Work</a><a href="#contact">Contact</a></nav>

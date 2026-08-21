@@ -17,8 +17,8 @@ export type Project = {
 export type ProjectInput = Omit<Project, "id" | "sortOrder">;
 
 export const fallbackProjects: Project[] = [
-  { id: 1, name: "L’Chaim", category: "Public resource", description: "Kosher products, trusted information, and useful everyday resources in one clear place.", url: "", status: "Published", access: "Public", mark: "L’", sortOrder: 0 },
-  { id: 2, name: "Cartiro", category: "Public tool", description: "A practical digital tool built to make everyday information easier to use.", url: "", status: "Published", access: "Public", mark: "CA", sortOrder: 1 },
+  { id: 1, name: "L’Chaim", category: "Public resource", description: "Kosher products, trusted information, and useful everyday resources in one clear place.", url: "/lchaim", status: "Published", access: "Public", mark: "L’", sortOrder: 0 },
+  { id: 2, name: "Cartiro", category: "Public tool", description: "A practical digital tool built to make everyday information easier to use.", url: "https://cartiro.app", status: "Published", access: "Public", mark: "CA", sortOrder: 1 },
   { id: 3, name: "Tzadikim Yahrtzeit", category: "Public resource", description: "Yahrtzeit dates, stories, and the enduring legacies of tzadikim.", url: "", status: "Published", access: "Public", mark: "TY", sortOrder: 2 },
   { id: 4, name: "Lenders Radar", category: "AI intelligence platform", description: "A private lending intelligence platform built for focused research and faster decisions.", url: "", status: "Published", access: "Private", mark: "LR", sortOrder: 3 },
 ];
@@ -123,9 +123,13 @@ export function normalizeProjectInput(value: unknown): ProjectInput | null {
   const access: ProjectAccess = record.access === "Private" ? "Private" : "Public";
   const mark = String(record.mark ?? "").trim().slice(0, 8);
   if (!name || !description || name.length > 100 || description.length > 500 || category.length > 80 || url.length > 300) return null;
-  if (url) {
+  if (url && !url.startsWith("/")) {
     try { if (!["http:", "https:"].includes(new URL(url).protocol)) return null; }
     catch { return null; }
   }
+  // Root-relative paths ("/lchaim") are allowed so in-site projects can be
+  // linked without hardcoding the public domain. Reject protocol-relative
+  // ("//evil.com") and any backslash form, which would leave the site.
+  if (url.startsWith("//") || url.includes("\\")) return null;
   return { name, category, description, url, status, access, mark };
 }

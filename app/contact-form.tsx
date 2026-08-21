@@ -1,10 +1,22 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export default function ContactForm() {
   const [state, setState] = useState<"idle" | "sending" | "sent" | "error">("idle");
   const [message, setMessage] = useState("");
+  const messageRef = useRef<HTMLParagraphElement | null>(null);
+
+  // On a phone the result line sits below the button, commonly behind the
+  // on-screen keyboard, so a send could look like nothing happened. Bring it
+  // into view and move focus once a result lands.
+  useEffect(() => {
+    if (!message) return;
+    const node = messageRef.current;
+    if (!node) return;
+    node.scrollIntoView({ block: "center", behavior: "smooth" });
+    node.focus();
+  }, [message]);
 
   async function submit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -39,7 +51,7 @@ export default function ContactForm() {
         {state === "sending" ? "Sending…" : "Send message"} <span aria-hidden="true">↗</span>
       </button>
       <p className="form-privacy">Your email is used only to reply to your message.</p>
-      {message && <p className={`form-message ${state}`} role="status">{message}</p>}
+      {message && <p className={`form-message ${state}`} role="status" tabIndex={-1} ref={messageRef}>{message}</p>}
     </form>
   );
 }

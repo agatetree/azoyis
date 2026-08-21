@@ -3,6 +3,12 @@
 import { useRef, useState } from "react";
 import type { Project } from "../lib/project-store";
 
+// Same-site links ("/lchaim") stay in the tab; only external ones open a
+// new one, so an in-site project does not spawn a stray tab.
+function isInternal(url: string) {
+  return url.startsWith("/") && !url.startsWith("//");
+}
+
 function isAiProject(project: Project) {
   const text = `${project.name} ${project.category}`.toLowerCase();
   return project.access === "Private" || /\b(ai|agent|crm|intelligence|system|manager)\b/.test(text);
@@ -57,6 +63,7 @@ function ProjectVisual({ project }: { project: Project }) {
 export default function ProjectShowcase({ projects }: { projects: Project[] }) {
   const [activeId, setActiveId] = useState(projects[0]?.id ?? 0);
   const touchStart = useRef<number | null>(null);
+  const tabTouch = useRef<{ x: number; y: number; id: number } | null>(null);
   const activeProject = projects.find((project) => project.id === activeId) ?? projects[0];
 
   function move(direction: -1 | 1) {
@@ -92,6 +99,24 @@ export default function ProjectShowcase({ projects }: { projects: Project[] }) {
                 className={project.id === activeProject.id ? "active" : ""}
                 key={project.id}
                 onClick={() => setActiveId(project.id)}
+                onTouchStart={(event) => {
+                  const touch = event.changedTouches[0];
+                  tabTouch.current = touch ? { x: touch.clientX, y: touch.clientY, id: project.id } : null;
+                }}
+                onTouchEnd={(event) => {
+                  // Activate straight from the touch sequence. Some mobile
+                  // browsers never deliver the synthesized click here, so this
+                  // does not depend on one arriving. Selecting is idempotent,
+                  // so a click that does arrive changes nothing.
+                  const start = tabTouch.current;
+                  tabTouch.current = null;
+                  if (!start || start.id !== project.id) return;
+                  const touch = event.changedTouches[0];
+                  if (!touch) return;
+                  // A drag means the user was scrolling, not tapping.
+                  if (Math.abs(touch.clientX - start.x) > 12 || Math.abs(touch.clientY - start.y) > 12) return;
+                  setActiveId(project.id);
+                }}
               >
                 <span>{String(index + 1).padStart(2, "0")}</span>
                 <span><strong>{project.name}</strong><small>{project.category}</small></span>
@@ -134,7 +159,11 @@ export default function ProjectShowcase({ projects }: { projects: Project[] }) {
 
             <div className="spotlight-actions">
               {activeProject.url && activeProject.access === "Public" ? (
-                <a className="button button-primary" href={activeProject.url} target="_blank" rel="noreferrer">Open project <span aria-hidden="true">↗</span></a>
+                isInternal(activeProject.url) ? (
+                  <a className="button button-primary" href={activeProject.url}>Open project <span aria-hidden="true">↗</span></a>
+                ) : (
+                  <a className="button button-primary" href={activeProject.url} target="_blank" rel="noreferrer">Open project <span aria-hidden="true">↗</span></a>
+                )
               ) : (
                 <span className={`spotlight-state ${activeProject.access.toLowerCase()}`}>
                   {activeProject.access === "Private" ? "Preview only" : "Public project"}

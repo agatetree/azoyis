@@ -2756,3 +2756,403 @@ footer {
     align-self: flex-start;
   }
 }
+
+/* ==========================================================================
+   Phone layer — narrow-screen fixes only.
+   Everything below is inside max-width queries, so desktop is untouched.
+   ========================================================================== */
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+img,
+video {
+  max-width: 100%;
+}
+
+@media (max-width: 650px) {
+  /* Long project names and headlines must never push the page sideways */
+  h1,
+  h2,
+  h3,
+  .spotlight-content h3,
+  .project-card h3 {
+    overflow-wrap: break-word;
+  }
+
+  /* Header links were ~13px tall. Vertical padding only, so nothing gets wider. */
+  nav a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    padding-block: 6px;
+  }
+
+  .site-header {
+    padding-block: 0;
+  }
+
+  h1 {
+    font-size: clamp(2.55rem, 12.5vw, 4.2rem);
+  }
+
+  .hero-text {
+    font-size: 1.02rem;
+  }
+
+  /* Hero secondary link was a bare inline target */
+  .hero-actions .text-link {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+  }
+
+  .services-grid p {
+    font-size: 0.95rem;
+  }
+
+  .approach-row > p,
+  .approach-row > div {
+    min-height: 64px;
+    padding: 14px 20px;
+  }
+
+  .approach-row strong {
+    font-size: 0.9rem;
+  }
+
+  .section-heading > p,
+  .services-intro > p {
+    font-size: 1rem;
+  }
+
+  .project-topline {
+    font-size: 0.72rem;
+  }
+
+  .project-selector-list button small {
+    font-size: 0.68rem;
+  }
+
+  .spotlight-description {
+    font-size: 1rem;
+  }
+
+  .spotlight-details dt {
+    font-size: 0.68rem;
+  }
+
+  .spotlight-details dd {
+    font-size: 0.88rem;
+  }
+
+  /* Was a fixed flex row: button (~174px) + arrows (~95px) overflowed
+     the ~244px content box on a 320px phone. */
+  .spotlight-actions {
+    flex-wrap: wrap;
+    gap: 14px;
+  }
+
+  .spotlight-actions > .button,
+  .spotlight-actions > .spotlight-state {
+    flex: 1 1 auto;
+    justify-content: center;
+  }
+
+  .spotlight-arrows {
+    gap: 10px;
+    margin-left: auto;
+  }
+
+  .showcase-swipe-note {
+    font-size: 0.78rem;
+  }
+
+  .form-privacy {
+    font-size: 0.76rem;
+  }
+
+  .footer-inner {
+    font-size: 0.9rem;
+  }
+
+  .footer-links a,
+  .footer-bottom a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+  }
+
+  .footer-links {
+    display: flex;
+    justify-content: center;
+  }
+
+  .footer-bottom {
+    gap: 12px;
+    font-size: 0.78rem;
+  }
+}
+
+@media (max-width: 480px) {
+  /* Two columns left ~115px per term at this width */
+  .spotlight-details {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 380px) {
+  .shell {
+    width: min(100% - 24px, 1160px);
+  }
+
+  .site-header {
+    padding-inline: 12px;
+  }
+
+  .brand,
+  .brand img {
+    width: 108px;
+  }
+
+  nav {
+    gap: 11px;
+    font-size: 0.82rem;
+  }
+
+  h1 {
+    font-size: clamp(2.2rem, 11.5vw, 3.2rem);
+  }
+
+  .services-intro h2,
+  .section-heading h2,
+  .contact-copy h2 {
+    font-size: clamp(2rem, 9.5vw, 4.4rem);
+  }
+
+  .services-grid article {
+    padding: 20px 18px 24px;
+  }
+
+  .spotlight-content,
+  .project-card {
+    padding-inline: 18px;
+  }
+
+  form {
+    padding: 18px;
+  }
+
+  .spotlight-arrows {
+    margin-left: 0;
+  }
+}
+
+@media (max-width: 900px) {
+  /* Grid children default to min-width:auto, so .project-selector grew to its
+     824px content width and .showcase-frame (overflow:hidden) clipped it —
+     the inner overflow-x:auto never engaged and 3 of 4 project tabs were
+     unreachable. min-width:0 lets it shrink so the list actually scrolls. */
+  .showcase-frame > *,
+  .project-selector,
+  .project-selector-list {
+    min-width: 0;
+  }
+
+}
+
+/* ==========================================================================
+   Intro splash
+   Hidden by default. The inline script in page.tsx sets data-splash="on"
+   before first paint, so the overlay is either painted on frame one or never
+   shown at all — it can't flash in after the page is already visible.
+   ========================================================================== */
+
+.splash {
+  display: none;
+}
+
+html[data-splash="on"] {
+  overflow: hidden;
+}
+
+html[data-splash="on"] .splash {
+  position: fixed;
+  z-index: 999;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background: #fbfaf7;
+  opacity: 1;
+  cursor: pointer;
+  transition: opacity 500ms ease;
+}
+
+html[data-splash="on"] .splash.is-leaving {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.splash-video {
+  width: min(560px, 84vw);
+  max-height: 70vh;
+  height: auto;
+  background: #fbfaf7;
+  object-fit: contain;
+}
+
+.splash-skip {
+  position: absolute;
+  right: max(18px, env(safe-area-inset-right));
+  bottom: max(18px, env(safe-area-inset-bottom));
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 72px;
+  min-height: 44px;
+  padding: 10px 18px;
+  border: 1px solid rgba(48, 59, 72, 0.14);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.7);
+  color: #7a8792;
+  cursor: pointer;
+  font-size: 0.76rem;
+  font-weight: 740;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  transition: color 160ms ease, border-color 160ms ease;
+}
+
+.splash-skip:hover,
+.splash-skip:focus-visible {
+  border-color: rgba(48, 59, 72, 0.3);
+  color: var(--ink);
+}
+
+/* Belt and braces: the inline script already skips for reduced motion. */
+@media (prefers-reduced-motion: reduce) {
+  .splash {
+    display: none !important;
+  }
+
+  html[data-splash="on"] {
+    overflow: visible;
+  }
+}
+
+/* ==========================================================================
+   Phone fixes from real-device testing
+   ========================================================================== */
+
+@media (max-width: 900px) {
+  /* Same tap/scroll conflict applies to any touch device, and the scroller was
+     broken at every width in this range anyway, so there is no working layout
+     to preserve. Two columns fit comfortably here with no scrolling. */
+  .project-selector-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    overflow-x: visible;
+    scroll-snap-type: none;
+  }
+
+  .project-selector-list button {
+    flex: none;
+    width: 100%;
+    min-height: 60px;
+  }
+}
+
+@media (max-width: 650px) {
+  /* The project tabs were a horizontal scroller: 4 x 195px of content in a
+     ~315px window, so only ~1.5 tabs were reachable and every tap had to be
+     disambiguated from a horizontal scroll gesture — the tap/scroll conflict
+     that stopped tabs switching on touch. On phones there is no reason to
+     scroll at all: stack them so each tab is a plain, unambiguous target. */
+  .project-selector-list {
+    grid-template-columns: 1fr;
+  }
+
+  /* The hero logo animation stacks below the hero copy once the hero grid
+     collapses to one column, which is the video that appeared mid-page.
+     The splash already covers the logo moment on mobile, so the panel is
+     redundant here. Hidden as a whole because the panel exists only to
+     present that animation — its caption alone would be an orphan. */
+  .brand-panel {
+    display: none;
+  }
+
+  /* Submit feedback sits below the button, where the on-screen keyboard
+     often hides it. Give it presence so a result is never missed. */
+  .form-message {
+    margin-top: 18px;
+    padding: 12px 14px;
+    border: 1px solid rgba(78, 111, 165, 0.25);
+    border-radius: 10px;
+    background: rgba(78, 111, 165, 0.07);
+    font-size: 0.92rem;
+    scroll-margin-block: 90px;
+  }
+
+  .form-message.error {
+    border-color: rgba(155, 79, 79, 0.3);
+    background: rgba(155, 79, 79, 0.07);
+  }
+}
+
+/* ==========================================================================
+   Project visual framing
+   Both project images are 1200x630, so the panel is locked to that ratio:
+   every project gets an identical box at any width, and the two real images
+   fill it edge to edge with no crop, no letterbox and no distortion.
+   object-fit: cover still applies so anything with a different ratio (a future
+   project image, or the max-height case on very wide screens) crops instead of
+   stretching. Panels can no longer change height when switching tabs.
+   ========================================================================== */
+
+.project-spotlight {
+  /* was minmax(330px, 1fr): let the visual keep its ratio and give any spare
+     height to the copy below, instead of stretching the image box. */
+  grid-template-rows: auto 1fr;
+}
+
+.spotlight-visual {
+  aspect-ratio: 1200 / 630;
+  min-height: 0;
+  max-height: 460px;
+}
+
+.spotlight-visual > .lchaim-preview,
+.spotlight-visual > .cartiro-preview,
+.spotlight-visual > .tzadikim-preview,
+.spotlight-visual > .private-project-preview,
+.spotlight-visual > .generic-project-preview {
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+/* Cartiro's artwork is cream on cream; the old dark panel and clamp() padding
+   framed it with a black border that read as a gap. Fill the block instead. */
+.spotlight-visual > .cartiro-preview {
+  background: #faf6f2;
+}
+
+.spotlight-visual > .cartiro-preview img,
+.spotlight-visual > .tzadikim-preview img,
+.spotlight-visual img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  max-height: none;
+  object-fit: cover;
+  object-position: center;
+}
