@@ -46,7 +46,6 @@ function ProjectVisual({ project }: { project: Project }) {
     return (
       <div className="private-project-preview" aria-label="Lenders Radar project preview">
         <div className="radar-visual" aria-hidden="true"><i /><i /><i /><b>LR</b></div>
-        <small>Preview only</small>
       </div>
     );
   }
@@ -140,9 +139,19 @@ export default function ProjectShowcase({ projects }: { projects: Project[] }) {
           }}
         >
           <div className={`spotlight-visual ${activeProject.access.toLowerCase()}`}>
-            <span className={`spotlight-access ${activeProject.access.toLowerCase()}`}>
-              {activeProject.access === "Private" ? "Private preview" : "Public project"}
-            </span>
+            {activeProject.url && activeProject.access === "Public" ? (
+              isInternal(activeProject.url) ? (
+                <a className="button button-primary spotlight-open" href={activeProject.url}>
+                  Open project <span aria-hidden="true">↗</span>
+                </a>
+              ) : (
+                <a className="button button-primary spotlight-open" href={activeProject.url} target="_blank" rel="noreferrer">
+                  Open project <span aria-hidden="true">↗</span>
+                </a>
+              )
+            ) : activeProject.access === "Private" ? (
+              <span className="spotlight-private">Private</span>
+            ) : null}
             <ProjectVisual project={activeProject} />
           </div>
 
@@ -152,23 +161,8 @@ export default function ProjectShowcase({ projects }: { projects: Project[] }) {
             <h3>{activeProject.name}</h3>
             <p className="spotlight-description">{activeProject.description}</p>
 
-            <dl className="spotlight-details">
-              <div><dt>Built as</dt><dd>{activeIsAi ? "AI tool or agent workflow" : activeProject.category}</dd></div>
-              <div><dt>Access</dt><dd>{activeProject.access === "Private" ? "Private demonstration" : "Available for public use"}</dd></div>
-            </dl>
 
             <div className="spotlight-actions">
-              {activeProject.url && activeProject.access === "Public" ? (
-                isInternal(activeProject.url) ? (
-                  <a className="button button-primary" href={activeProject.url}>Open project <span aria-hidden="true">↗</span></a>
-                ) : (
-                  <a className="button button-primary" href={activeProject.url} target="_blank" rel="noreferrer">Open project <span aria-hidden="true">↗</span></a>
-                )
-              ) : (
-                <span className={`spotlight-state ${activeProject.access.toLowerCase()}`}>
-                  {activeProject.access === "Private" ? "Preview only" : "Public project"}
-                </span>
-              )}
               <div className="spotlight-arrows" aria-label="Browse projects">
                 <button type="button" onClick={() => move(-1)} aria-label="Previous project">←</button>
                 <button type="button" onClick={() => move(1)} aria-label="Next project">→</button>

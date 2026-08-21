@@ -259,7 +259,7 @@ export default function ProjectsAdmin({
               <small>Used until a final project image is added later.</small>
             </div>
             <label><span>Project name</span><input type="text" value={draft.name} onChange={(event) => setDraft({ ...draft, name: event.target.value })} placeholder="Project name" required /></label>
-            <label><span>Website address</span><input type="url" value={draft.url} onChange={(event) => setDraft({ ...draft, url: event.target.value })} placeholder="https://project.azoyis.com" /><small>The address stays hidden. Visitors click the project button.</small></label>
+            <label><span>Website address</span><input type="text" inputMode="url" value={draft.url} onChange={(event) => setDraft({ ...draft, url: event.target.value })} placeholder="https://project.azoyis.com or /lchaim" /><small>Full address, or a path on this site such as /lchaim. The address stays hidden. Visitors click the project button.</small></label>
             <label><span>Short description</span><textarea rows={4} value={draft.description} onChange={(event) => setDraft({ ...draft, description: event.target.value })} placeholder="What does this project help people do?" required /></label>
             <div className="admin-field-row">
               <label><span>Category</span><input type="text" value={draft.category} onChange={(event) => setDraft({ ...draft, category: event.target.value })} placeholder="AI agent, tool, system…" /></label>

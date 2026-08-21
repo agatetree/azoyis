@@ -3156,3 +3156,131 @@ html[data-splash="on"] .splash.is-leaving {
   object-fit: cover;
   object-position: center;
 }
+
+/* ==========================================================================
+   Spotlight: compact redesign
+   Shorter banner, one action, no side column. The frame no longer follows the
+   image ratio, so images are contained rather than cropped and each frame is
+   painted with that image's own sampled edge colour — the picture reads as
+   full-bleed with nothing cut off and no visible letterbox.
+   ========================================================================== */
+
+.spotlight-visual {
+  aspect-ratio: auto;
+  height: 250px;
+  min-height: 0;
+  max-height: none;
+}
+
+.spotlight-visual > .lchaim-preview,
+.spotlight-visual > .cartiro-preview,
+.spotlight-visual > .tzadikim-preview,
+.spotlight-visual > .private-project-preview,
+.spotlight-visual > .generic-project-preview {
+  height: 100%;
+  min-height: 0;
+}
+
+/* Edge colours sampled from the source files, so the contained image blends
+   into its frame instead of sitting on a mismatched band. */
+.spotlight-visual > .cartiro-preview {
+  background: #fef7f4;
+}
+
+.spotlight-visual > .tzadikim-preview {
+  background: #060402;
+}
+
+.spotlight-visual > .cartiro-preview img,
+.spotlight-visual > .tzadikim-preview img,
+.spotlight-visual img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+}
+
+/* The single action, sitting where the access badge used to be. */
+.spotlight-open {
+  position: absolute;
+  z-index: 4;
+  top: 16px;
+  right: 16px;
+  min-height: 44px;
+  padding: 11px 18px;
+  font-size: 0.88rem;
+  box-shadow: 0 10px 26px rgba(24, 34, 48, 0.28);
+}
+
+.spotlight-private {
+  position: absolute;
+  z-index: 4;
+  top: 16px;
+  right: 16px;
+  display: inline-flex;
+  align-items: center;
+  min-height: 28px;
+  padding: 5px 12px;
+  border: 1px solid rgba(255, 255, 255, 0.42);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.82);
+  color: #6c6355;
+  font-size: 0.62rem;
+  font-weight: 780;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  backdrop-filter: blur(9px);
+}
+
+/* Single column now the details list is gone. */
+.spotlight-content {
+  grid-template-columns: minmax(0, 1fr);
+  padding: 26px 32px 28px;
+}
+
+.spotlight-description {
+  max-width: 640px;
+}
+
+/* Arrows are the only thing left down here. */
+.spotlight-actions {
+  justify-content: flex-end;
+  margin-top: 14px;
+  padding-top: 18px;
+}
+
+@media (max-width: 650px) {
+  .spotlight-visual {
+    height: 170px;
+  }
+
+  .spotlight-open {
+    top: 12px;
+    right: 12px;
+    padding: 10px 15px;
+    font-size: 0.83rem;
+  }
+
+  .spotlight-private {
+    top: 12px;
+    right: 12px;
+  }
+
+  .spotlight-content {
+    padding: 22px 20px 22px;
+  }
+
+  .spotlight-actions {
+    margin-top: 12px;
+    padding-top: 16px;
+  }
+}
+
+/* These two previews are grids whose auto row sizes itself to the image's
+   intrinsic height, so height:100% on the image resolved against that row
+   instead of the frame and overflowed it. object-fit already centres the
+   picture, so the grid buys nothing here. */
+.spotlight-visual > .cartiro-preview,
+.spotlight-visual > .tzadikim-preview {
+  display: block;
+}
